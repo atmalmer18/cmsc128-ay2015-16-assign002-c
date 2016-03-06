@@ -24,3 +24,7 @@ int getMaxSkewN (char * strInput, int scope) {
 int getMinSkewN (char * strInput, int scope) {
 	return 0;
 }
+
+int main () {
+	return 0;
+}
