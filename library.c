@@ -22,7 +22,25 @@ int getHammingDistance (char * str1, char * str2) {
 }
 
 int countSubstrPattern (char * strToCheck, char * pattern) {
-	return 0;
+	int i = 0, foundPatterns = 0;
+	
+	if (strlen(pattern) > strlen(strToCheck)) {
+		return 0;
+	}
+	
+	if (strlen(pattern) == strlen(strToCheck) && strcmp(strToCheck, pattern) == 0) {
+		return 1;
+	} else {
+		return 0;
+	}
+	
+	for (; i < strlen(strToCheck) - strlen(pattern); i += 1) {
+		if () {
+			
+		}
+	}
+	
+	return foundPatterns;
 }
 
 int isValidString (char * strToCheck, char * alphabet) {
