@@ -11,6 +11,7 @@ int getHammingDistance (char * str1, char * str2) {
 	int i = 0, inversions = 0;
 	
 	if (strlen(str1) != strlen(str2)) {
+		printf("Error! Strings are not equal!\n");
 		return -1;
 	}
 	
@@ -19,7 +20,7 @@ int getHammingDistance (char * str1, char * str2) {
 	}
 	
 	for (; i < strlen(str1); i += 1) {
-		if (str1[i] == str2[i]) {
+		if (str1[i] != str2[i]) {
 			inversions += 1;
 		}
 	}
@@ -34,15 +35,7 @@ int getHammingDistance (char * str1, char * str2) {
 */
 int countSubstrPattern (char * strToCheck, char * pattern) {
 	char * out;
-	int i = 0, j = 0, foundPatterns = 0;
-	void getSubstring (char * str, char * output, int startIndex, int endIndex) {
-		int x = 0;
-		
-		for (x = startIndex; x < endIndex; x += 1) {
-			output[x-startIndex] = str[x];
-		}
-		output[x-startIndex] = '\0';
-	}
+	int i = 0, j = 0, foundPatterns = 0, isSameFlag = 0;
 	
 	if (strlen(pattern) > strlen(strToCheck)) {
 		return 0;
@@ -50,17 +43,19 @@ int countSubstrPattern (char * strToCheck, char * pattern) {
 	
 	if (strlen(pattern) == strlen(strToCheck) && strcmp(strToCheck, pattern) == 0) {
 		return 1;
-	} else {
-		return 0;
 	}
 	
 	for (; i <= strlen(strToCheck) - strlen(pattern); i += 1) {
-		for (j = 0; j < strlen(pattern); j += 1) {
-			getSubstring(strToCheck, out, i, i + strlen(pattern));
-			if (strcmp(out, pattern) == 0) {
-				foundPatterns += 1;
+		isSameFlag = 1;
+		for (j = i; j < strlen(pattern); j += 1) {
+			if (strToCheck[j] != pattern[j - i]) {
+				isSameFlag = 0;
+				break;
 			}
-		}	
+		}
+		if (isSameFlag == 1) {
+			foundPatterns += 1;
+		}
 	}
 	
 	return foundPatterns;
@@ -75,7 +70,7 @@ int isValidString (char * strToCheck, char * alphabet) {
 	int i = 0, j = 0, isValid = 0, isValidPerSymbol[strlen(alphabet)];
 	
 	if (strlen(strToCheck) < 0 || strlen(alphabet) == 0) {
-		return -1;
+		return 0;
 	}
 	
 	if (strlen(strToCheck) == 0) {
@@ -83,10 +78,10 @@ int isValidString (char * strToCheck, char * alphabet) {
 	}
 	
 	for (; i < strlen(strToCheck); i += 1) {
-		isValidPerSymbol[i] = 0;
 		for (j = 0; j < strlen(alphabet); j += 1) {
-			if (strToCheck[i] == alphabet[i]) {
-				isValidPerSymbol[i] = 1;
+			isValidPerSymbol[j] = 0;
+			if (strToCheck[i] == alphabet[j]) {
+				isValidPerSymbol[j] = 1;
 			}
 		}
 	}
@@ -174,8 +169,4 @@ int getMinSkewN (char * strInput, int scope) {
 	}
 	
 	return numberOfSkew;
-}
-
-int main () {
-	return 0;
 }
