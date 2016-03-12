@@ -108,7 +108,14 @@ int getSkew (char * strInput, int scope) {
 }
 
 int getMaxSkewN (char * strInput, int scope) {
-	return 0;
+	int i = 0, j = 0, numberOfSkew = 0;
+	for (; i < scope; i += 1) {
+		if (strInput[i] == 'G') {
+			numberOfSkew += 1;
+		}
+	}
+	
+	return numberOfSkew;
 }
 
 int getMinSkewN (char * strInput, int scope) {
