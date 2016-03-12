@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
+/*
+	FUNCTION_DESC: 
+		Given two strings str1 and str2 of same length (length must never be 0 or
+		negative!), the Hamming Distance of two strings is the number of characters 
+		that differ in ith position from position 1 to strlen(str1).
+*/
 int getHammingDistance (char * str1, char * str2) {
 	int i = 0, inversions = 0;
 	
@@ -21,6 +27,11 @@ int getHammingDistance (char * str1, char * str2) {
 	return inversions;
 }
 
+/*
+	FUNCTION_DESC: 
+		Given a string original and pattern, we will count the number of occurrence
+		of pattern in original.
+*/
 int countSubstrPattern (char * strToCheck, char * pattern) {
 	char * out;
 	int i = 0, j = 0, foundPatterns = 0;
@@ -55,6 +66,11 @@ int countSubstrPattern (char * strToCheck, char * pattern) {
 	return foundPatterns;
 }
 
+/*
+	FUNCTION_DESC: 
+		Given an alphabet string where all letters are assumed to be unique, this
+		function returns true if the string str is a valid string based on the letters of alphabet.
+*/
 int isValidString (char * strToCheck, char * alphabet) {
 	int i = 0, j = 0, isValid = 0, isValidPerSymbol[strlen(alphabet)];
 	
@@ -86,17 +102,24 @@ int isValidString (char * strToCheck, char * alphabet) {
 	return isValid;
 }
 
+/*
+	FUNCTION_DESC: 
+		Given a genome str of some length q (where q>0), it returns the number of
+		Gs minus the number of Cs in the first n nucleotides (q>=n). The value can be zero,
+		negative or positive. The first position is one (1) not zero(0) as we typically associate with
+		string implementations.
+*/
 int getSkew (char * strInput, int scope) {
-	int i = 0, j = 0, numberOfSkew = 0;
-	for (; i < scope; i += 1) {
+	int i = 1, j = 1, numberOfSkew = 0;
+	for (; i <= scope; i += 1) {
 		if (strInput[i] == 'G') {
 			numberOfSkew += 1;
 		}
 	}
 	
-	for (i = 0; i < scope; i += 1) {
+	for (i = 1; i < scope; i += 1) {
 		if (strInput[i] == 'G') {
-			for (j = i + 1; j < scope - 1; j += 1) {
+			for (j = i + 1; j <= scope - 1; j += 1) {
 				if (strInput[j] == 'C') {
 					numberOfSkew -= 1;
 				}
@@ -107,9 +130,16 @@ int getSkew (char * strInput, int scope) {
 	return numberOfSkew;
 }
 
+/*
+	FUNCTION_DESC: 
+		Given a genome str of some length q (where q>0), it returns the maximum
+		value of the number of Gs minus the number of Cs in the first n nucleotides (q>=n). The
+		value can be zero, negative or positive. The first position is one (1) not zero(0) as we
+		typically associate with string implementations.
+*/
 int getMaxSkewN (char * strInput, int scope) {
-	int i = 0, j = 0, numberOfSkew = 0;
-	for (; i < scope; i += 1) {
+	int i = 1, numberOfSkew = 0;
+	for (; i <= scope; i += 1) {
 		if (strInput[i] == 'G') {
 			numberOfSkew += 1;
 		}
@@ -118,17 +148,24 @@ int getMaxSkewN (char * strInput, int scope) {
 	return numberOfSkew;
 }
 
+/*
+	FUNCTION_DESC: 
+		Given a genome str of some length q (where q>0), it returns the minimum
+		value of the number of Gs minus the number of Cs in the first n nucleotides (q>=n). The
+		value can be zero, negative or positive. The first position is one (1) not zero(0) as we
+		typically associate with string implementations.
+*/
 int getMinSkewN (char * strInput, int scope) {
-	int i = 0, j = 0, numberOfSkew = 0;
-	for (; i < scope; i += 1) {
+	int i = 1, j = 1, numberOfSkew = 0;
+	for (; i <= scope; i += 1) {
 		if (strInput[i] == 'G') {
 			if (numberOfSkew != 1) numberOfSkew += 1;
 		}
 	}
 	
-	for (i = 0; i < scope; i += 1) {
+	for (i = 1; i <= scope; i += 1) {
 		if (strInput[i] == 'G') {
-			for (j = i + 1; j < scope - 1; j += 1) {
+			for (j = i + 1; j <= scope - 1; j += 1) {
 				if (strInput[j] == 'C') {
 					numberOfSkew -= 1;
 				}
