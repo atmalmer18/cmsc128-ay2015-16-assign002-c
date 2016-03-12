@@ -22,7 +22,16 @@ int getHammingDistance (char * str1, char * str2) {
 }
 
 int countSubstrPattern (char * strToCheck, char * pattern) {
-	int i = 0, foundPatterns = 0;
+	char * out;
+	int i = 0, j = 0, foundPatterns = 0;
+	void getSubstring (char * str, char * output, int startIndex, int endIndex) {
+		int x = 0;
+		
+		for (x = startIndex; x < endIndex; x += 1) {
+			output[x-startIndex] = str[x];
+		}
+		output[x-startIndex] = '\0';
+	}
 	
 	if (strlen(pattern) > strlen(strToCheck)) {
 		return 0;
@@ -34,10 +43,13 @@ int countSubstrPattern (char * strToCheck, char * pattern) {
 		return 0;
 	}
 	
-	for (; i < strlen(strToCheck) - strlen(pattern); i += 1) {
-		if () {
-			
-		}
+	for (; i <= strlen(strToCheck) - strlen(pattern); i += 1) {
+		for (j = 0; j < strlen(pattern); j += 1) {
+			getSubstring(strToCheck, out, i, i + strlen(pattern));
+			if (strcmp(out, pattern) == 0) {
+				foundPatterns += 1;
+			}
+		}	
 	}
 	
 	return foundPatterns;
