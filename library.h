@@ -67,7 +67,7 @@ int countSubstrPattern (char * strToCheck, char * pattern) {
 		function returns true if the string str is a valid string based on the letters of alphabet.
 */
 int isValidString (char * strToCheck, char * alphabet) {
-	int i = 0, j = 0, isValid = 0, isValidPerSymbol[strlen(alphabet)];
+	int i = 0, j = 0, isValid = 0, isValidPerSymbol[strlen(alphabet)], isNotSeen[strlen(strToCheck)];
 	
 	if (strlen(strToCheck) < 0 || strlen(alphabet) == 0) {
 		return 0;
@@ -77,24 +77,43 @@ int isValidString (char * strToCheck, char * alphabet) {
 		return 1;
 	}
 	
-	for (; i < strlen(strToCheck); i += 1) {
-		for (j = 0; j < strlen(alphabet); j += 1) {
+	for (i = 0; i < strlen(alphabet); i += 1) {
+		isValidPerSymbol[i] = 0;
+	}
+	
+	for (j = 0; j < strlen(alphabet); j += 1) {
+		for (i = 0; i < strlen(strToCheck); i += 1) {
 			isValidPerSymbol[j] = 0;
 			if (strToCheck[i] == alphabet[j]) {
 				isValidPerSymbol[j] = 1;
+				break;
+			}
+		}
+	}
+	
+	for (i = 0; i < strlen(strToCheck); i += 1) {
+		for (j = 0; j < strlen(alphabet); j += 1) {
+			isNotSeen[j] = 0;
+			if (strToCheck[i] == alphabet[j]) {
+				isNotSeen[j] = 1;
+				break;
 			}
 		}
 	}
 	
 	for (i = 0; i < strlen(alphabet); i += 1) {
-		isValid = 1;
-		if (isValidPerSymbol[i] == 0) {
-			isValid = 0;
-			break;
+		if (isValidPerSymbol[i] != 1) {
+			return 0;
 		}
 	}
 	
-	return isValid;
+	for (i = 0; i < strlen(strToCheck); i += 1) {
+		if (isNotSeen[i] != 1) {
+			return 0;
+		}
+	}
+	
+	return 1;
 }
 
 /*
